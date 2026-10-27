@@ -1,0 +1,69 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>1. Marketing Budget Optimization</title><style>
+:root{--bg:#f6f7fb;--card:#fff;--ink:#1c2333;--mut:#667085;--line:#e4e7ee;--ac:#4f46e5;--in:#0ea5e9;--pr:#6366f1;--de:#f59e0b;--ou:#10b981}
+*{box-sizing:border-box}body{margin:0;font:15px/1.5 system-ui,-apple-system,Segoe UI,sans-serif;background:var(--bg);color:var(--ink)}
+.wrap{max-width:1080px;margin:0 auto;padding:24px 18px 60px}a{color:var(--ac)}
+h1{font-size:26px;margin:6px 0}h2{font-size:18px;margin:0 0 12px}.tag{display:inline-block;background:#eef2ff;color:var(--ac);border-radius:99px;padding:2px 12px;font-size:12px;font-weight:600}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;margin:16px 0}
+.flow{display:flex;flex-direction:column;align-items:center;gap:0}
+.node{width:min(560px,100%);padding:10px 16px;border-radius:10px;text-align:center;font-size:14px;border:2px solid;background:#fff}
+.node.input{border-color:var(--in);background:#f0f9ff;border-radius:99px}.node.process{border-color:var(--pr);background:#eef2ff}
+.node.decision{border-color:var(--de);background:#fffbeb;transform:skewX(-6deg);font-weight:600}.node.decision span{display:inline-block;transform:skewX(6deg)}
+.node.output{border-color:var(--ou);background:#ecfdf5;border-radius:99px;font-weight:600}
+.arrow{width:2px;height:18px;background:#98a2b3;position:relative}.arrow:after{content:"";position:absolute;bottom:-1px;left:-4px;border:5px solid transparent;border-top:7px solid #98a2b3;border-bottom:0}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--mut);margin-bottom:12px}.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;border:2px solid;margin-right:4px;vertical-align:-2px}
+pre{background:#0f172a;color:#e2e8f0;padding:14px;border-radius:10px;overflow:auto;font-size:13px;line-height:1.5;margin:0}
+.ctl{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-bottom:14px}.ctl label{font-size:13px;color:var(--mut);display:block}.ctl b{color:var(--ink)}input[type=range]{width:100%;accent-color:var(--ac)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:14px}.kpi{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:10px 12px}.kpi small{color:var(--mut);display:block;font-size:12px}.kpi div{font-size:19px;font-weight:700}
+table{border-collapse:collapse;width:100%;font-size:13px}th,td{text-align:left;padding:7px 9px;border-bottom:1px solid var(--line)}th{background:#f8fafc;color:var(--mut);font-weight:600}.tw{overflow:auto}
+.bars{margin-top:14px}.br{display:grid;grid-template-columns:150px 1fr 70px;gap:8px;align-items:center;font-size:12px;margin:4px 0}.bt{background:#eef0f6;border-radius:6px;height:16px;position:relative}.bf{height:100%;border-radius:6px;background:var(--ac)}.bf.neg{background:#ef4444}.ref{position:absolute;top:-3px;bottom:-3px;width:2px;background:#111}
+.ins{background:#eef2ff;border-left:4px solid var(--ac);padding:10px 14px;border-radius:6px;margin-top:14px;font-size:14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}.grid a{text-decoration:none;color:inherit}.grid .card{margin:0;height:100%;transition:.15s}.grid .card:hover{border-color:var(--ac);transform:translateY(-2px)}
+.grid p{color:var(--mut);font-size:13px;margin:6px 0 0}.nav{display:flex;justify-content:space-between;margin-top:20px;font-size:14px}
+</style></head><body><div class="wrap">
+<div style="margin-top:10px"><span class="tag">Marketing · Project 1</span></div><h1>Marketing Budget Optimization</h1>
+<div class="card"><h2>Problem</h2><p style="margin:0">Heavy spend across many channels, but management cannot tell which campaigns bring profitable customers. Identify wasted spend, estimate campaign effectiveness and recommend a reallocation.</p></div>
+<div class="card"><h2>Algorithm flow</h2><div class="legend"><span><i style="border-color:var(--in);background:#f0f9ff"></i>Input</span><span><i style="border-color:var(--pr);background:#eef2ff"></i>Process</span><span><i style="border-color:var(--de);background:#fffbeb"></i>Decision</span><span><i style="border-color:var(--ou);background:#ecfdf5"></i>Output</span></div><div class="flow"><div class="node input"><span>Collect campaign, customer, conversion &amp; revenue data</span></div><div class="arrow"></div><div class="node process"><span>Clean &amp; join: spend → leads → customers → revenue</span></div><div class="arrow"></div><div class="node process"><span>Compute CAC, ROAS, LTV:CAC, profit per channel</span></div><div class="arrow"></div><div class="node process"><span>Fit response curve per channel (diminishing returns: rev = a·spend^b)</span></div><div class="arrow"></div><div class="node decision"><span>ROAS &lt; target or LTV:CAC &lt; 3 ?</span></div><div class="arrow"></div><div class="node process"><span>YES → mark channel inefficient, release X% of its budget</span></div><div class="arrow"></div><div class="node process"><span>NO → candidate for extra budget (ranked by marginal ROAS)</span></div><div class="arrow"></div><div class="node process"><span>Re-allocate released budget, re-predict revenue with response curves</span></div><div class="arrow"></div><div class="node output"><span>Recommended budget plan + projected uplift</span></div></div></div>
+<div class="card"><h2>Pseudocode</h2><pre>for ch in channels:
+    ch.cac  = ch.spend / ch.new_customers
+    ch.roas = ch.revenue / ch.spend
+    ch.b    = fit_loglog(ch.history_spend, ch.history_revenue)   # elasticity
+losers  = [c for c in channels if c.roas &lt; TARGET_ROAS]
+winners = sorted(others, key=marginal_roas, reverse=True)
+pool = sum(c.spend * SHIFT_PCT for c in losers)
+for c in losers:  c.new_spend = c.spend * (1 - SHIFT_PCT)
+for w in winners: w.new_spend = w.spend + pool * w.marginal_roas / sum_marginal
+projected = sum(c.rev0 * (c.new_spend / c.spend) ** c.b for c in channels)
+return plan, projected - current_revenue</pre></div>
+<div class="card"><h2>Interactive demo <span style="font-weight:400;color:var(--mut);font-size:13px">(synthetic data – move the sliders)</span></h2><div class="ctl"><div><label>Target ROAS: <b id="v_target"></b><input type="range" data-p="target" min="1" max="6" step="0.1" value="3"></label></div><div><label>% budget released from losers: <b id="v_shift"></b><input type="range" data-p="shift" min="0" max="80" step="5" value="40"></label></div></div><div class="kpis" id="kpis"></div><div class="tw"><table id="tbl"></table></div><div class="bars" id="bars"></div><div class="ins" id="ins"></div></div>
+</div>
+<script>
+function rng(s){return function(){s|=0;s=s+0x6D2B79F5|0;let t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function fmt$(v){return v>=1e6?'$'+(v/1e6).toFixed(2)+'M':v>=1e3?'$'+(v/1e3).toFixed(0)+'k':'$'+Math.round(v)}
+function esc(s){return String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]))}
+const P={};
+function readParams(){document.querySelectorAll('[data-p]').forEach(i=>{P[i.dataset.p]=parseFloat(i.value);document.getElementById('v_'+i.dataset.p).textContent=i.value})}
+function draw(){readParams();const o=run(P);
+ document.getElementById('kpis').innerHTML=o.kpis.map(k=>`<div class="kpi"><small>${esc(k[0])}</small><div>${esc(k[1])}</div></div>`).join('');
+ document.getElementById('tbl').innerHTML='<tr>'+o.cols.map(c=>`<th>${esc(c)}</th>`).join('')+'</tr>'+o.rows.map(r=>'<tr>'+r.map(c=>`<td>${esc(c)}</td>`).join('')+'</tr>').join('');
+ const mx=Math.max(...o.bars.map(b=>Math.abs(b[1])),o.barRef||0)||1;
+ document.getElementById('bars').innerHTML=`<b style="font-size:13px">${esc(o.barTitle)}</b>`+o.bars.map(b=>`<div class="br"><span>${esc(b[0])}</span><div class="bt"><div class="bf ${b[1]<0?'neg':''}" style="width:${Math.abs(b[1])/mx*100}%"></div>${o.barRef!=null?`<div class="ref" style="left:${o.barRef/mx*100}%"></div>`:''}</div><span>${(+b[1]).toFixed(Math.abs(b[1])>=100?0:2)}</span></div>`).join('');
+ document.getElementById('ins').textContent='💡 '+o.insight}
+document.querySelectorAll('[data-p]').forEach(i=>i.addEventListener('input',draw));
+
+
+const R=rng(11);const names=['Google Search','Meta Ads','YouTube','Email','Influencers','Display','Affiliates','TV/Radio'];
+const D=names.map((n,i)=>{const spend=40+R()*160;const roas=0.8+R()*5;return {n,spend:Math.round(spend)*1000,roas,b:0.45+R()*0.35,ltv:60+R()*180,cac:20+R()*120}});
+function run(p){
+ const win=[],lose=[];D.forEach(c=>(c.roas<p.target?lose:win).push(c));
+ const pool=lose.reduce((a,c)=>a+c.spend*p.shift/100,0);
+ const mr=c=>c.roas*c.b;const sm=win.reduce((a,c)=>a+mr(c),0)||1;
+ let cur=0,proj=0;
+ const rows=D.map(c=>{let ns=c.spend;if(c.roas<p.target)ns=c.spend*(1-p.shift/100);else ns=c.spend+pool*mr(c)/sm;
+  const r0=c.spend*c.roas,r1=r0*Math.pow(ns/c.spend,c.b);cur+=r0;proj+=r1;
+  return [c.n,fmt$(c.spend),c.roas.toFixed(2),(c.ltv/c.cac).toFixed(1),c.roas<p.target?'⚠ Inefficient':'✓ Efficient',fmt$(ns),(ns>=c.spend?'+':'')+((ns/c.spend-1)*100).toFixed(0)+'%']});
+ return {kpis:[['Current revenue',fmt$(cur)],['Projected revenue',fmt$(proj)],['Uplift',((proj/cur-1)*100).toFixed(1)+'%'],['Budget released',fmt$(pool)]],
+  cols:['Channel','Spend','ROAS','LTV:CAC','Status','New spend','Change'],rows,
+  bars:D.map(c=>[c.n,c.roas]),barTitle:'ROAS by channel (target line = slider)',barRef:p.target,
+  insight:lose.length?`${lose.length} channel(s) fall below the ROAS target. Moving ${p.shift}% of their budget into high marginal-ROAS channels lifts revenue ${((proj/cur-1)*100).toFixed(1)}% at equal total spend.`:'All channels meet target – lower the target slider to see reallocation.'};}
+
+draw();</script></body></html>
